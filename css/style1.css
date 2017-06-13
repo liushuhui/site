@@ -1,0 +1,247 @@
+html,
+body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	min-width: 980px;
+	background-position: center top;
+	background-color: #ebf8fc;
+}
+
+.hide {
+	display: none;
+}
+
+.f {
+	float: left;
+	position: relative;
+}
+
+.of {
+	overflow: hidden;
+}
+
+#wrap {
+	background: #f8f7f7 url(../images/bg.jpg) bottom center no-repeat;
+	min-width: 1000px;
+	overflow: hidden;
+}
+
+.bg {
+	min-width: 1000px;
+}
+
+.inner {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.header {
+	background: url(../images/header1.jpg) repeat-x center;
+	height: 138px;
+}
+
+.nav {
+	background: url(../images/nav.jpg) repeat-x;
+	position: relative;
+	height: 50px;
+}
+
+.marg10 {
+	margin: 10px;
+}
+
+.spr {
+	background: url(../images/sprite.png) no-repeat;
+}
+
+.n1 {
+	background-position: -360px 2px;
+	width: 240px;
+	height: 20px;
+}
+
+.n2 {
+	background-position: -360px -38px;
+	width: 240px;
+}
+
+.n3 {
+	background-position: -360px -78px;
+	width: 390px;
+}
+
+.n4 {
+	background-position: -360px -118px
+}
+
+.n5 {
+	background-position: -360px -158px;
+}
+
+.n6 {
+	background-position: -360px -198px
+}
+
+.n7 {
+	background-position: -360px -238px;
+}
+
+.n8 {
+	background-position: -360px -278px
+}
+
+.n9 {
+	background-position: -360px -318px;
+	width: 165px;
+}
+
+.n10 {
+	background-position: -360px -358px;
+	width: 165px;
+}
+
+
+/*主菜单*/
+
+ul.menu {
+	margin-left: 47px;
+}
+
+ul.menu li {
+	float: left;
+	list-style-type: none;
+	position: relative;
+	font-family: 微软雅黑;
+	font-size: 14px;
+	width: 100px;
+	height: 40px;
+}
+
+ul.menu li a {
+	text-decoration: none;
+	color: #606263;
+	display: block;
+	width: 100px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	overflow: hidden;
+}
+
+ul.menu li:hover {
+	background: url(../images/menu-hover.jpg) no-repeat;
+	color: #ffffff;
+}
+
+ul.menu li:hover a {
+	color: #ffffff;
+}
+
+ul.menu li.current {
+	background: url(../images/menu-current.jpg) no-repeat;
+	position: relative;
+}
+
+ul.menu li.current a {
+	color: #ffffff;
+}
+
+
+/*字体颜色*/
+
+.drop_menu li ul li a {
+	border-left: 1px solid #c8c8c8
+}
+
+.first {
+	background: url(../images/hover.jpg) repeat;
+}
+
+.bg_weiguo {
+	background: url(../images/hover.jpg);
+}
+
+#footer {
+	background: url(../images/foot.jpg) repeat-x;
+	clear: both;
+	padding-right: 100px;
+	padding-left: 100px;
+	padding-top: 10px;
+	height: 80px;
+}
+
+#footer p {
+	font-size: 12px;
+	font-family: 微软雅黑;
+	color: #8a8888;
+	text-align: center;
+	letter-spacing: 1px;
+}
+
+.hid {
+	display: none;
+}
+
+.videoLay {
+	border: 3px solid #3b6cff;
+	background: #fff url(../images/loading.gif) no-repeat center center;
+}
+
+.dialog_title {
+	position: absolute;
+	top: -3px;
+	right: -28px;
+	background: #3b6cff;
+}
+
+.exit {
+	display: block;
+	font-size: 18px;
+	width: 28px;
+	line-height: 28px;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	color: #fff;
+}
+
+.local_btn {
+	display: block;
+	width: 28px;
+	text-align: center;
+	text-decoration: none;
+	border-top: 5px solid #ccc;
+	color: #fff;
+	padding: 5px 0;
+}
+
+.list li {
+	overflow: hidden;
+	width: 162px;
+	display: block;
+	width: 155px;
+	float: left;
+	margin: 10px 10px 10px 0;
+	border: 1px solid #ccc;
+	padding: 2.5px;
+	height: 190px;
+}
+
+.list a {
+	display: block;
+}
+
+.list a img {
+	display: block;
+	margin: 0 auto;
+}
+
+.list a span {
+	display: block;
+	text-align: center;
+	color: #000;
+}

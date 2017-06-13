@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+<title>Android学习网站</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_8.css">
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+
+<style>
+	.clearfix:after {
+		content: '';
+		display: block;
+		height: 0;
+		clear: both;
+	}
+	.img-avatar {
+		width: 120px;
+		height: 120px;
+		margin: 0 auto;
+		text-align: center;
+		border: 1px dashed #999;
+		position: relative;
+	}
+	.img-avatar i {
+		font-size: 56px;
+		line-height: 120px;
+	}
+	.img-avatar img {
+		width: 120px;
+		height: 120px;
+	}
+	.img-avatar .remove {
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: inline-block;
+		padding: 8px;
+		background-color: rgba(225,225,225,.8);
+	}
+	.avatar-file {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+	}
+	.teacher {
+		position: relative;
+	}
+
+	.delete-teacher {
+		position: absolute;
+		top: 0;
+		right: 0;
+		color: #f00;
+		padding: 8px;
+		font-size: 18px;
+		background-color: rgba(225, 225, 225, .8);
+		cursor: pointer;
+	}
+
+	.video {
+		text-align: center;
+		position: relative;
+	}
+	.video i {
+		font-size: 16px;
+	}
+	.video-file {
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	.showCover {
+		width: 100%;
+		height: auto;
+	}
+	.playVideo {
+		width: 100%;
+		height: auto;
+	}
+	.text-center {
+		text-align: center;
+	}
+</style>
+<!-- 引入组件库 -->
+<script src="https://cdn.bootcss.com/vue/2.3.0/vue.min.js"></script>	
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+<!--[if IE 6]>
+<style type="text/css" media="screen">
+body{behavior:url(csshover.htc);} 
+.left{height:650px;float:left;top;position:relative;z-index:1;margin-left:22px;z-index:2;width:208px;_display:inline;}
+</style>
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+</head>
+<body>
+<div id="wrap">
+   <div class="header">
+			
+		</div>
+    <div class="nav">
+         <div class="inner">
+             <ul class="menu">
+                 <li><a href="/home">首页</a></li>
+                 <li><a href="/teachers">教学团队</a></li>
+                 <li><a href="/courses">课程概要</a></li>
+				 <li><a href="/files">教学文件</a></li>
+                 <li><a href="/videos">视频学习</a></li> 
+                 <li><a href="/learning">学习资料</a></li>
+                 <li  class="current"><a href="/teaching">教学资源</a></li>
+                 
+                 <li><a href="/about">关于我们</a></li>
+             </ul>
+        </div>
+     </div>
+
+   <div class="bg">
+    <div class="main">
+	    <div class="inner">
+		    <div class="left">
+			    <div class="tab">
+				     <ul class="tab_menu text-center">
+				         <li>管理员管理</li>
+				     </ul>
+		                     
+				    <div class="tab_box">
+				         <div class="drop_menu">	
+				             <ul>
+								<li @click="(type='course')&&(tab='qh_con0')"><a href="#"   id="mynav0" :class="{first: tab=='qh_con0'}" title="书籍管理">书籍管理</a></li>
+								<li @click="(type='course')&&(tab='qh_con1')"><a href="#"   id="mynav1" :class="{first: tab=='qh_con1'}" title="视频管理">视频管理</a></li>
+								<li  @click="(type='teacher')&&(tab='qh_con2')"><a href="#"   id="mynav2" :class="{first: tab=='qh_con2'}" title="教师管理">教师管理</a></li>
+				            </ul>
+				        </div>  			
+	                </div>
+				</div>
+			</div>
+		     <div class="right">
+		         <div class="right-menu">
+		         	<el-button v-if="type=='teacher'" type="info" @click="addTeacher">添加教师</el-button>
+		         	<el-button v-if="type=='course'" type="info" @click="addCourse">添加视频</el-button>
+			     </div>
+			     <div class="content">
+				    <div class="content-main">
+						<div v-if="tab == 'qh_con0'" class="tab_con">
+							<h3>已添加的书籍:</h3>
+						
+							<ul class="list clearfix">
+								<li v-for="item in courses.data" @click="showCover(item)" class="teacher">
+									<span @click.stop="removeCourse(item)" class="delete-teacher el-icon-delete"></span>
+									<a href="#">
+										<img :src="item.cover" width="150" height="104"/>
+										<span>{{item.name}}</span>
+									</a>
+								</li>
+							</ul>
+							<el-pagination
+						      @current-change="findCourse"
+						      :current-page="params.page"
+						      :page-size="params.limit"
+						      layout="total, prev, pager, next"
+						      :total="courses.total">
+						    </el-pagination>
+						</div>
+						<div v-if="tab == 'qh_con1'" class="tab_con">
+							<h3>已添加的教学视频:</h3>
+							
+							<ul class="list clearfix">
+								<li v-for="item in courses.data" @click="playVideo(item)" class="teacher">
+									<span @click.stop="removeCourse(item)" class="delete-teacher el-icon-delete"></span>
+									<a href="#" >
+										<img :src="item.cover" width="150" height="104"/>
+										<span>{{item.name}}</span>
+									</a>
+								</li>
+							</ul>
+							<el-pagination
+						      @current-change="findCourse"
+						      :current-page="params.page"
+						      :page-size="params.limit"
+						      layout="total, prev, pager, next"
+						      :total="courses.total">
+						    </el-pagination>
+						</div>
+						<div v-if="tab == 'qh_con2'" class="tab_con">
+						<h3>已添加的教师:</h3>
+							<ul class="list clearfix">
+								<li v-for="item in teachers.data" class="teacher" @click="showAvatar(item)">
+									<span @click.stop="removeTeacher(item)" class="delete-teacher el-icon-delete"></span>
+									<a href="#">
+										<img :src="item.avatar" width="150" height="104"/>
+										<span>姓名:{{item.name}}</span>
+										<p>{{item.profile}}</p>
+									</a>
+								</li>
+							</ul>
+
+							<el-pagination
+						      @current-change="findTeacher"
+						      :current-page="params.page"
+						      :page-size="params.limit"
+						      layout="total, prev, pager, next"
+						      :total="teachers.total">
+						    </el-pagination>
+						</div>
+				        
+					    
+			        </div>	     
+                 </div>  
+            </div>
+        </div>	
+     </div>	
+             <div id="footer">
+					<div class="inner">
+						<p>Copyright reserved by 西南石油大学软件工程刘曙辉</p>
+						<p>联系电话：029-85126455 E-mail:liushuhui@swpu.edu.cn</p>
+
+					</div>
+				</div>
+ 	<!-- 教師添加 -->
+	<el-dialog title="教师添加" size="tiny" v-model="teacherModal">
+		<el-form :model="teacher">
+			<el-form-item label="头像" label-width="80px">
+				<div class="img-avatar">
+					<template v-if="!teacher.avatar">
+						<i class="el-icon-plus"></i>
+						<input accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadFile" type="file" id="uploadFile" class="avatar-file" />
+					</template>
+					<template v-else>
+						<img :src="teacher.avatar"/>
+						<span @click="teacher.avatar=''" class="el-icon-delete2 remove"></span>
+					</template>
+				</div>
+			</el-form-item>
+		    <el-form-item label="名字" label-width="80px">
+		      <el-input v-model="teacher.name"></el-input>
+		    </el-form-item>
+		    <el-form-item label="简介" label-width="80px">
+		      <el-input type="textarea" v-model="teacher.profile"></el-input>
+		    </el-form-item>
+			
+			<template v-for="(num, ind) in teacher.project">
+				<h2 class="text-center">项目{{ind + 1}}</h2>
+			    <el-form-item label="项目名" label-width="80px">
+			      <el-input @change="setProjectName" @focus="index=ind"></el-input>
+			    </el-form-item>
+			    <el-form-item label="项目介绍" label-width="80px">
+			      <el-input  @change="setProjectIntroduce" @focus="index=ind" type="textarea"></el-input>
+			    </el-form-item>
+			</template>
+			<el-form-item>
+		    	<el-button type="warning" @click="removeProject">删除</el-button>
+		    	<el-button type="info" @click="addProject">增加</el-button>
+		    </el-form-item>
+			
+			<el-form-item label="教学风格" label-width="80px">
+		      <el-input type="textarea" v-model="teacher.style"></el-input>
+		    </el-form-item>
+
+		    <el-form-item>
+		    	<el-button type="warning" @click="teacherModal=false">取消</el-button>
+		        <el-button type="success" @click="createTeacher" 
+		        	:disabled="!teacher.name || !teacher.profile || !teacher.avatar">添加</el-button>
+		    </el-form-item>
+		</el-form>
+	</el-dialog>
+
+	<!-- 課程添加 -->
+	<el-dialog title="视频添加" size="tiny" v-model="courseModal">
+		<el-form :model="course">
+			<el-form-item label="视频封面" label-width="70px">
+				<div class="img-avatar">
+					<template v-if="!course.cover">
+						<i class="el-icon-plus"></i>
+						<input accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadCover" type="file" id="uploadCover" class="avatar-file" />
+					</template>
+					<template v-else>
+						<img :src="course.cover"/>
+						<span @click="course.cover=''" class="el-icon-delete2 remove"></span>
+					</template>
+				</div>
+			</el-form-item>
+		    <el-form-item label="视频名称" label-width="70px">
+		      <el-input v-model="course.name"></el-input>
+		    </el-form-item>
+		    <el-form-item label="视频资源" label-width="70px">
+		    	<div class="video">
+		    	<template v-if="!course.url">
+			    	<el-button type="primary" :loading="ispending">
+			    		<span v-if="!ispending"><i class="el-icon-upload"></i> 上传</span>
+			    		<span v-else>加载中</span></el-button>
+					<input  @change="uploadVideo" type="file" id="uploadVideo" class="video-file" />
+		    	</template>
+		    	<template v-else>
+		    		<el-input v-model="course.url" :disabled="true"></el-input>
+		    	</template>
+		    	</div>
+		    </el-form-item>
+		    <el-form-item>
+		    	<el-button type="warning" @click="teacherModal=false">取消</el-button>
+		        <el-button type="success" @click="createCourse" 
+		        	:disabled="!course.cover || !course.name || !course.url">添加</el-button>
+		    </el-form-item>
+		</el-form>
+	</el-dialog>
+
+	<!--错误消息-->
+	<el-dialog title="错误提示" size="tiny" v-model="errorModal">
+		<p>{{error.msg || '网络错误,刷新重试'}}</p>
+	</el-dialog>
+
+	<!--查看大图-->
+	<el-dialog title="查看大图"  v-model="coverModal">
+		<img class="showCover" :src="currentCourse.cover" />
+	</el-dialog>
+
+	<!--播放视频-->
+	<el-dialog :title="currentCourse.name" v-model="videoModal">
+		<video v-if="currentCourse.url" @click="ctrlVideo($event)" class="playVideo" :src="currentCourse.url" autoplay="autoplay" controls="controls"></video>
+	</el-dialog>
+
+	<!--查看大头图-->
+	<el-dialog :title="currentTeacher.name" size="tiny" v-model="avatarModal">
+		<img class="showCover" :src="currentTeacher.avatar" />
+		<p>{{currentTeacher.profile}}</p>
+	</el-dialog>
+
+ </div>
+
+</div>
+<!-- dialog -->
+<div class="videoLay" id="videoLay" style="display: none;min-height:600px;">
+    <div class="dialog_title">
+        <a onclick="DivHide()" href="javascript:void(0)" class="exit">&times;</a>
+    </div>
+    <div class="swfLay l">
+       
+    </div>
+
+</div>
+
+
+<!-- dialog end-->
+</body>
+<script type="text/javascript" src="js/com.js"></script>
+<!-- <script type="text/javascript" src="js/note.js"></script> -->
+<script type="text/javascript" src="js/video.js"></script>
+<script type="text/javascript">
+    var dialog_img = document.getElementById('dialog_img');
+    //配置弹出层，传入id
+    function TGDialogS(e){showDialog.show({id:e,bgcolor:"#000000",opacity:100});}
+    //弹出层
+    function DivHide(){
+        showDialog.hide('layer');
+    }
+
+    function DivShow2(videoID){
+    	dialog_img.src= "";
+        showDialog.show({
+            id:"videoLay",
+            bgcolor:"#000",
+            opacity:60
+        });
+        dialog_img.src= videoID;
+    }
+</script>
+<script>
+	let qny = 'http://opcv7tb8n.bkt.clouddn.com/'
+	let http = axios.create({
+		baseURL: '/api',
+		timeout: 1000
+	});
+
+	new Vue({
+		el: "#wrap",
+		data: {
+			tab: 'qh_con0',
+			errorModal: false,
+			error: '',
+			index: 0,
+			teacher: {
+				name: '',
+				avatar: '',
+				profile: '',
+				project: [
+					{
+						name: '',
+						introduce: ''
+					}
+				],
+				style: ''
+			},
+			teachers: '',
+			teacherModal: false,
+			type: 'course',
+			token: '',
+			params: {
+				limit: 8,
+				page: 1
+			},
+			// 課程模態框
+			courseModal: false,
+			course: {
+				name: '',
+				cover: '',
+				url: ''
+			},
+			courses: '',
+			ispending: false,
+			coverModal: false,
+			videoModal: false,
+			currentCourse: '',
+			avatarModal: false,
+			currentTeacher: '',
+
+		},
+		created(){
+			this.findTeacher()
+			this.findCourse()
+		},
+		methods: {
+			upload(el, fn) {
+				let formData = new FormData
+				let file = document.getElementById(el).files[0]
+				formData.append('token', this.token)
+				formData.append('file', file)
+				
+				return axios.post('http://up-z2.qiniu.com', formData).then(res => qny + res.data.key)	
+				
+				
+			},
+			findTeacher(page) {
+				this.params.page = page || this.params.page
+				http
+					.get('/teacher', {
+						params: this.params
+					})
+					.then(res => this.teachers = res.data)
+			},
+			findCourse(page) {
+				this.params.page = page || this.params.page
+				http
+					.get('/course', {
+						params: this.params
+					})
+					.then(res => this.courses = res.data)
+			},
+			addTeacher() {
+				this.teacherModal = true
+				getToken().then(token => this.token = token)
+			},
+			uploadFile() {
+				this.upload('uploadFile').then(url => this.teacher.avatar = url)
+			},
+			addProject() {
+				this.teacher.project.push({
+					name: '',
+					introduce: ''
+				})
+			},
+			removeProject() {
+				if(this.teacher.project.length===1) return
+				this.teacher.project.pop()
+			},
+			setProjectName(val) {
+				let orign = this.teacher.project[this.index]
+				Vue.set(this.teacher.project, this.index, Object.assign(orign, {name: val}))
+			},
+			setProjectIntroduce(val) {
+				let orign = this.teacher.project[this.index]
+				Vue.set(this.teacher.project, this.index, Object.assign(orign, {introduce: val}))
+			},
+			createTeacher() {
+				console.log(this.teacher)
+				this.teacherModal = false
+				http.post('/teacher', this.teacher)
+					.then(res => {
+						this.findTeacher()
+					})
+					.catch(res => {
+						this.error = res.response.data
+						this.errorModal = true
+					})
+				
+				this.teacher = {
+					name: '',
+					avatar: '',
+					profile: '',
+					project: [
+						{
+							name: '',
+							introduce: ''
+						}
+					],
+					style: ''
+				}
+			},
+			removeTeacher(item) {
+				http.delete('/teacher/' + item._id)
+					.then(res => {
+						this.findTeacher()
+					})
+					.catch(res => {
+						this.error = res.response.data
+						this.errorModal = true
+					})
+			},
+			addCourse() {
+				this.courseModal = true
+				getToken().then(token => this.token = token)
+			},
+			uploadCover() {
+				this.upload('uploadCover').then(cover => {
+					this.course.cover = cover
+				})
+			},
+			uploadVideo() {
+				this.ispending = true
+				this.upload('uploadVideo')
+				.then(url => {
+					console.log(url)
+					this.course.url = url
+				})
+			},
+			createCourse() {
+				this.courseModal = false
+				http.post('/course', this.course)
+					.then(res => {
+						this.findCourse()
+					})
+					.catch(res => {
+						this.error = res.response.data
+						this.errorModal = true
+					})
+
+				this.course = {
+					name: '',
+					cover: '',
+					url: ''
+				}
+			},
+			removeCourse(item) {
+				http.delete('/course/' + item._id)
+					.then(res => {
+						this.findCourse()
+					})
+					.catch(res => {
+						this.error = res.response.data
+						this.errorModal = true
+					})
+			},
+			showCover(item) {
+				this.coverModal = true
+				this.currentCourse = item
+			},
+			playVideo(item) {
+				this.videoModal = true
+				this.currentCourse = item
+			},
+			ctrlVideo($e) {
+				let video = $e.target
+				if (video.paused) {
+					video.play()
+				} else {
+					video.pause()
+				}
+			},
+			showAvatar(item) {
+				this.avatarModal = true
+				this.currentTeacher = item
+			}
+
+		},
+		watch: {
+			tab() {
+				this.params.page = 1
+			},
+			courseModal() {
+				this.ispending = false
+			},
+			videoModal(newVal) {
+				if (newVal === false) {
+					this.currentCourse = ''
+				}
+				return 
+			}
+		}
+	})
+// {token: String, expires: Number}
+	function getToken() {
+		let data = localStorage.getItem('uptoken')
+	
+		if (data && JSON.parse(data).expires > Date.now()) {
+			return Promise.resolve(JSON.parse(data).token)
+		} else {
+			return http.get('/uptoken')
+				.then(res => {
+					let uptoken = res.data
+					uptoken.expires = 1000 * 60 * 40 + Date.now()
+					localStorage.setItem('uptoken', JSON.stringify(uptoken))
+					return uptoken.token
+				})
+		}
+	}
+</script>
+</html>
+		 

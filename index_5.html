@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+<title>Android学习网站</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_5.css">
+
+<style>
+	.courses-list {
+		max-height: 500px;
+		overflow: auto;
+		border-top: 1px solid #ccc;
+	}
+	.courses-list a {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.video-resourse {
+		width: 100%;
+		height: auto;
+		margin-bottom: 20px;
+	}
+</style>
+
+<!-- 引入样式 -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css"> -->
+<!-- 引入组件库 -->
+<script src="https://cdn.bootcss.com/vue/2.3.0/vue.min.js"></script>	
+<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+<!--[if IE 6]>
+<style type="text/css" media="screen">
+body{behavior:url(csshover.htc);} 
+.left{height:650px;float:left;top;position:relative;z-index:1;margin-left:22px;z-index:2;width:208px;_display:inline;}
+</style>
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <div class="header">
+    	
+    </div>
+    <div class="nav">
+         <div class="inner">
+             <ul class="menu">
+                <li><a href="/home">首页</a></li>
+                 <li><a href="/teachers">教学团队</a></li>
+                 <li><a href="/courses">课程概要</a></li>
+				 <li><a href="/files">教学文件</a></li>
+                 <li  class="current"><a href="/videos">视频学习</a></li> 
+                 <li><a href="/learning">学习资料</a></li>
+                 <li><a href="/teaching">教学资源</a></li>
+                 
+                 <li><a href="/about">关于我们</a></li>
+             </ul>
+        </div>
+     </div>
+
+   <div class="bg">
+    <div class="main">
+	    <div class="inner">
+		    <div class="left">
+			    <div class="tab">
+				     <ul class="tab_menu">
+				         <li>教学录像</li>
+				     </ul>
+		                     
+				    <div class="tab_box">
+				         <div class="drop_menu">	
+				             <ul class="courses-list">
+					              <li @click="changeItem(item)" :class="{first: activeItem._id === item._id}" v-for="item in courses">
+						              <a href="#" :title="item.name">{{item.name}}</a>
+					              </li>
+				            </ul>
+				        </div>  			
+	                </div>
+				</div>
+			</div>
+		     <div class="right">
+		         <div class="right-menu">
+			     </div>
+			     <div class="content">
+			     	<div class="content-main">
+			     		<video class="video-resourse" :src="activeItem.url" controls="controls" preload="preload" @click="ctrlVideo($event)"></video>
+			     	</div>
+				     <!-- <div class="content-main">
+				         <div id="qh_con0" class="tab_con" >
+							<a href="1.html"  title="第0章绪论1" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第0章绪论1" class="yangshi2"/>
+								<span>绪论1</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							
+							<a href="1.html" title="第0章绪论2" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第0章绪论2" class="yangshi2"/>
+								<span>绪论2</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+					     </div> 
+					     <div id="qh_con1" class="hid tab_con">
+						 <a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+					     </div> 
+					     <div id="qh_con2" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第5章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第5章" class="yangshi2"/>
+								<span>第5章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第6章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第6章" class="yangshi2"/>
+								<span>第6章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第7章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第7章" class="yangshi2"/>
+								<span>第7章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第8章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第8章" class="yangshi2"/>
+								<span>第8章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第9章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第9章" class="yangshi2"/>
+								<span>第9章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+					     <div id="qh_con3" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第5章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第5章" class="yangshi2"/>
+								<span>第5章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第6章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第6章" class="yangshi2"/>
+								<span>第6章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+			             <div id="qh_con4" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+					     <div id="qh_con5" class="hid tab_con">
+							<a href="1.html" title="第1章视图" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章视图" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第5章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第5章" class="yangshi2"/>
+								<span>第5章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第6章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第6章" class="yangshi2"/>
+								<span>第6章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第7章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第7章" class="yangshi2"/>
+								<span>第7章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+						 <div id="qh_con6" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+						 <div id="qh_con7" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第5章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第5章" class="yangshi2"/>
+								<span>第5章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第6章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第6章" class="yangshi2"/>
+								<span>第6章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+						 <div id="qh_con8" class="hid tab_con">
+							<a href="1.html" title="第1章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第1章" class="yangshi2"/>
+								<span>第1章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第2章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第2章" class="yangshi2"/>
+								<span>第2章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+						 <div id="qh_con9" class="hid tab_con">
+							<a href="1.html" title="第3章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第3章" class="yangshi2"/>
+								<span>第3章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第4章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第4章" class="yangshi2"/>
+								<span>第4章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第5章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第5章" class="yangshi2"/>
+								<span>第5章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+							<a href="1.html" title="第6章" class="video">
+								<img src="images/liuchengkui.jpg" width="100px" height="100px" alt="第6章" class="yangshi2"/>
+								<span>第6章</span>
+								<span>主讲人：陈丰尧</span>
+							</a>
+						 </div> 
+			         </div>		 -->      
+                 </div>  
+             </div>
+         </div>	
+     </div>	
+             <div id="footer">
+					<div class="inner">
+						<p>Copyright reserved by 西南石油大学软件工程刘曙辉</p>
+						<p>联系电话：029-85126455 E-mail:liushuhui@swpu.edu.cn</p>
+
+					</div>
+				</div>
+ </div>
+</div>
+<div class="videoLay" id="videoLay">
+    <div class="dialog_title">
+        <a onclick="DivHide()" href="javascript:void(0)" class="exit">&times;</a>
+        <a href="" target="_blank" class="local_btn" id="local_btn">用本地播放器观看</a>
+    </div>
+    <div id="swfLay" class="swfLay l"></div>
+</div>
+<script>
+	new Vue({
+		el: "#wrap",
+		data: {
+			courses: '',
+			activeItem: ''
+		},
+		created() {
+			this.getCourse().then(arr => this.changeItem(arr[0]))
+		},
+		methods: {
+			getCourse() {
+				return axios.get('/api/course')
+					.then(res => this.courses = res.data)
+			},
+			changeItem(item) {
+				this.activeItem = item	
+			},
+			ctrlVideo($e) {
+				let video = $e.target
+				if (video.paused) {
+					video.play()
+				} else {
+					video.pause()
+				}
+			},
+		}
+	})
+</script>
+<!-- <script type="text/javascript" src="js/note.js"></script> -->
+<!-- <script type="text/javascript" src="js/video.js"></script> -->
+<!-- <script type="text/javascript" src="js/client.js"></script> -->
+<!-- <script type="text/javascript" src="js/show-video.js"></script> -->
+</body>
+</html>
+		 

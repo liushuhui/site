@@ -1,0 +1,157 @@
+﻿html,
+body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	min-width: 980px;
+	background-position: center top;
+	background-color: #ebf8fc;
+}
+
+.left {
+	float: left;
+	top: 0px;
+	position: relative;
+	margin-left: 22px;
+	width: 180px;
+}
+
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.tab_menu {
+	border: 1px solid #c8c8c8;
+	border-top: none;
+	border-bottom: none;
+	height: 33px;
+	background: url(../images/left-top1.jpg) repeat-x;
+	padding-top: 1px;
+}
+
+ul.tab_menu li {
+	list-style: none;
+	font-family: "微软雅黑";
+	font-size: 15px;
+	padding: 6px 23px;
+	color: #ffffff;
+	cursor: pointer;
+	position: relative;
+}
+
+.tab_box {
+	border: 1px solid #c8c8c8;
+	border-top: none;
+	position: relative;
+}
+
+.tab_box ul {
+	background: #f9f9fd;
+}
+
+.tab_box li {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	letter-spacing: 1px;
+	border-bottom: 1px solid #c8c8c8;
+}
+
+.tab_box li a {
+	text-decoration: none;
+	color: #424343;
+	display: block;
+}
+
+
+/*子导航的一级导航*/
+
+#nav li a:hover {
+	background: url(../images/hover.jpg) repeat;
+	position: relative;
+}
+
+#nav li {
+	list-style-type: none;
+	position: relative;
+}
+
+#nav li a {
+	display: block;
+	height: 37px;
+	line-height: 37px;
+	text-align: center;
+}
+
+
+/*子导航的二级导航*/
+
+#nav li ul {
+	display: none;
+}
+
+#nav li ul {
+	position: absolute;
+	left: 100%;
+	top: 0;
+	width: 250px;
+	background: #f9f9fd;
+	border: 1px solid #c8c8c8;
+	border-left: none;
+	z-index: 3;
+}
+
+#nav li ul li {
+	border-bottom: 1px solid #c8c8c8;
+}
+
+#nav li:hover ul,
+#nav li.over ul {
+	display: block;
+}
+
+#nav li ul {
+	display: none;
+}
+
+.right {
+	float: left;
+	padding-left: 20px;
+	width: 738px;
+	position: relative;
+}
+
+.right-menu {
+	height: 34px;
+	background: url(../images/right-top.jpg) repeat-x;
+}
+
+.content {
+	border: 1px solid #c8c8c8;
+	border-top: none;
+	background: url(../images/right.jpg) no-repeat;
+	position: relative;
+}
+
+.content-main {
+	margin-left: 20px;
+	position: relative;
+	clear: both;
+	zoom: 1;
+}
+
+.yangshi a {
+	text-decoration: none;
+	color: #606263;
+	border: 1px solid #c8c8c8;
+	font-size: 15px;
+}
+
+.yangshi a:hover {
+	color: #88abda;
+}

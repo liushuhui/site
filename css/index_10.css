@@ -1,0 +1,48 @@
+.content-main{overflow: hidden;}
+.video{display: block;width: 120px;height: 240px;float: left;border:1px solid #ccc;margin:0 10px 10px 0;overflow: hidden;}
+.video img{display: block;width: 100px;height:100px;margin: 10px auto;}
+.video span{display: block;width: 100px;margin: 10px auto;text-align: center;}
+span{font-family:"微软雅黑";font-size:12px;margin:0px;}
+html, body {width:100%; padding:0; margin:0;}
+
+body {
+	min-width: 980px;
+	background-position: center top;
+    background-color:#ebf8fc;
+}
+
+.left{height:650px;float:left;top:20px;position:relative;margin-left:22px;z-index:3;}
+ul,li{margin:0;padding:0;list-style:none;}
+ul.tab_menu{border:1px solid #c8c8c8;border-top:none;border-bottom:none;height:41px;background:url(../images/left-top.jpg) repeat-x ;padding-top:1px;}
+ul.tab_menu li{list-style:none;float:left;height:30px;font-family:微软雅黑;font-size:14px;padding:6px 23px;color:#ffffff;cursor:pointer;position:relative;}
+ul.tab_menu li.selected{background:url(../images/left-top-hover.jpg) repeat-x; position:relative;}
+.tab_box{border:1px solid #c8c8c8;border-top:none;position:relative;z-index:3;}
+.tab_box ul{background:#f9f9fd;}
+.tab_box li{font-family:微软雅黑;font-size:14px;padding:1px;letter-spacing:1px;border-bottom:1px solid #c8c8c8;}/*padding不设或等于0在ie会有影响*/
+.tab_box li a{text-decoration:none;color:#424343;}
+.drop_menu ul li a{text-align: left;}
+.hide{display:none;}
+.hide li{letter-spacing: 1px;}
+.hide li a{display:block;height:37px;text-align: center;line-height: 40px;}
+
+/*子导航的一级导航*/
+.drop_menu  li{list-style-type:none;position:relative;z-index:3;}
+.drop_menu li a{display:block;height: 37px;line-height: 37px;text-align: center;}
+.drop_menu li ul{display:none;z-index:3;}
+
+.right{float:left;padding-left:20px;margin-bottom:30px;width:718px;position:relative;z-index:1;top:20px;}
+.right-menu{height:34px;background:url(../images/right-top.jpg) repeat-x ;}
+.content{border:1px solid #c8c8c8;border-top:none;background:#f9f9fd;zoom:1;clear: both;}
+.hid{display:none;}
+.content-main{padding-top:10px;margin-left:20px;margin-right:20px;position:relative;;clear: both;}
+
+h1{margin-top:0px;font-family:"微软雅黑";font-size:16px;}
+h2 {font-weight:normal;margin-top:0px;margin-bottom:10px;font-family:"微软雅黑";font-size:14px;text-indent:20px;}
+h3{margin-bottom:0px;font-family:"微软雅黑";font-size:15px;text-indent:25px;margin-top:5px;}
+p {margin-top:0px;font-family:"微软雅黑";font-size:14px;text-indent:28px;margin-bottom:6px;}
+span{font-family:"微软雅黑";font-size:12px;margin:0px;}
+#footer{margin-top:20px;}
+#qh_con3 h2{margin-top:0px;font-family:"微软雅黑";font-size:16px;text-align: center;}
+#qh_con3 h3{}
+
+.yangshi a{text-decoration:none;color:#606263;border:1px solid #c8c8c8;font-size:20px;}

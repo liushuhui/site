@@ -1,0 +1,27 @@
+{
+  "name": "biyesheji-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node app",
+    "start": "pm2 start app.js --name biyesheji",
+    "restart": "pm2 restart biyesheji",
+    "stop": "pm2 stop biyesheji"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "crypto-js": "^3.1.9-1",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.1.1",
+    "koa-session": "^5.0.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.7"
+  },
+  "devDependencies": {
+    "pm2": "^2.4.6"
+  }
+}

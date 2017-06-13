@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+	<title>Android学习网站</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="css/index_1.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="uEditor/uEditor.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/smoothness/jquery.ui.css"/>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+
+	<!-- 引入组件库 -->
+	<script src="https://cdn.bootcss.com/vue/2.3.0/vue.min.js"></script>	
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+	<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-migrate-1.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/forms.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.validate.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+</head>
+<body>
+	
+		<div class="header" id="app">
+			
+				
+			<div class="header-member">
+				
+				<template v-if="user">
+					<a href="#" id="member">{{user.name}}</a>
+					|
+					<a href="#" @click="logout">退出</a>
+				</template>
+				<template v-else>
+					<a  type="button" href="#" @click="registerModal=true">注册</a>
+					| 
+					<a href="#" @click="loginModal=true">登录</a>
+				</template>
+				
+				<!-- register -->
+				<el-dialog title="用户注册" size="tiny" v-model="registerModal">
+
+			        <div class="form form-horizontal">
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-3 ">用户名</label>
+			        		<div class="col-xs-9">
+			        			<input type="text" v-model="params.name" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-3">邮箱</label>
+			        		<div class="col-xs-9">
+			        			<input type="text" v-model="params.email" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-3">密码</label>
+			        		<div class="col-xs-9">
+			        			<input type="password" v-model="params.password" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-3">重复密码</label>
+			        		<div class="col-xs-9">
+			        			<input type="password" v-model="password" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+					        <button type="button" class="btn btn-default" @click="registerModal=false">取消</button>
+					        <button type="button" class="btn btn-primary" @click="register" 
+					        	:disabled="!params.email || !params.name || !params.password || (password !== params.password)">注册</button>
+					    </div>
+			        </div>
+				      
+				</el-dialog>
+
+				<!-- login -->
+				<el-dialog title="用户登录" size="tiny" v-model="loginModal">
+
+			        <div class="form form-horizontal">
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-2">邮箱</label>
+			        		<div class="col-xs-10">
+			        			<input type="text" v-model="loginParams.email" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+			        		<label class="control-label col-xs-2">密码</label>
+			        		<div class="col-xs-10">
+			        			<input type="password" v-model="loginParams.password" class="form-control" />
+			        		</div>
+			        	</div>
+			        	<div class="form-group">
+					        <button type="button" class="btn btn-default" @click="loginModal=false">取消</button>
+					        <button type="button" class="btn btn-primary" @click="login" 
+					        	:disabled="!loginParams.email || !loginParams.password">登录</button>
+					    </div>
+			        </div>
+				      
+				</el-dialog>
+				
+				<!--错误消息-->
+				<el-dialog title="错误提示" size="tiny" v-model="errorModal">
+					<p>{{error.msg}}</p>
+				</el-dialog>
+			</div>
+			
+		</div>
+		<div id="wrap">
+		
+		<div class="nav">
+			<div class="inner">
+				<ul class="menu">
+					<li  class="current" >
+						<a href="/home">首页</a>
+					</li>
+					<li>
+						<a href="/teachers">教学团队</a>
+					</li>
+					<li>
+						<a href="/courses">课程概要</a>
+					</li>
+					<li>
+						<a href="/files">教学文件</a>
+					</li>
+					<li>
+						<a href="/videos">视频学习</a>
+					</li>
+					<li>
+						<a href="/learning">学习资料</a>
+					</li>
+					
+					<li>
+						<a href="/teaching">教学资源</a>
+					</li>
+					
+					<li>
+						<a href="/about">关于我们</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="bg">
+			<div class="main">
+				<div class="inner">
+					<div class="left">
+						<div class="lefttop">
+							<div class="lefttop_left">
+								<div class="lefttop_lefttop">
+									<div class="lmenu spr n1">
+										课程概要
+										<a href="/courses" class="lian">more&gt;&gt;</a>
+									</div>
+									<div class="bangshi">
+										<div class="bang1">课程简介</div>
+										<div class="bang2">教学大纲</div>
+										<div class="bang1">教学日历</div>
+										<div class="bang2">考核评价方式</div>
+										<div class="bang1">学习指南</div>
+										<div class="bang2">教学成果</div>
+									</div>
+								</div>
+								<div class="lefttop_leftcenter">
+									<div class="lmenu spr n2">
+										学习资源
+										<a href="/learning" class="lian">more&gt;&gt;</a>
+									</div>
+									<div class="bangshi2">
+										<div class="bang1">推荐教材</div>
+										<div class="bang2">动画资源</div>
+										<div class="bang1">视频资源</div>
+										<div class="bang2">专题网站</div>
+										<div class="bang1">模拟考试</div>
+										<div class="bang2">在线测试</div>
+									</div>
+								</div>
+								<div class="lefttop_leftbottom">
+									<div class="lmenu spr n2" id="fontcss">
+										视频公开课
+									</div>
+									<div class="bangshi2">
+										<a href="javascript:void(0)" target="_blank" class="bang1">Android学习</a>
+										
+									</div>
+								</div>
+							</div>
+							<div class="lefttop_right">
+								<div class="lmenu2 spr n3">
+									教学团队
+									<a href="/teachers" class="lian2">more&gt;&gt;</a>
+								</div>
+								<div class="picture">
+									<img src="images/chenfengyao.png" width="120px" height="140px" alt=""/>
+								</div>
+								<p>
+									<div class="xiaobiao">
+										<img src="images/cha_01.jpg" alt=""/>
+										课程负责人
+									</div>
+								</p>
+								<p>
+								陈丰尧（丰神） Android高级讲师,陈丰尧老师拥有丰富的Android开发经验，对Android开发的许多知识点都有深入的研究。多年软件开发实战经验，精通Java、PHP、Python，对Android中的AMS、WMS、事件传递等方面均有深入的研究，尤其擅长对应的性能进行优化，在内存、功耗、流畅度、UI绘制等方面均有自己独到的理解，善于结合现实生活将复杂晦涩的理论讲解出来，并总结其规律性。
+
+									<a href="/teachers" class="lian6">详细&gt;&gt;</a>
+								</p>
+								
+									<div class="xiaobiao">
+										<img src="images/cha_02.jpg" alt=""/>
+										主讲老师
+									</div>
+								
+								<ul class="smtitle">
+									<li>陈丰尧</li>
+									<li>张虎</li>
+									<li>王辉</li>
+									<li>李在京</li>
+								</ul>
+								<ul class="smtitle">
+									<li>文超</li>
+									<li>陈少辉</li>
+									<li>唐少辉</li>
+									<li>董丰明</li>
+								</ul>
+							</div>
+						</div>
+						<div class="leftmid">
+							<div class="lmenu3  spr n6">
+								教学录像
+								<a href="/videos" class="lian3">more&gt;&gt;</a>
+							</div>
+							<div class="slider">
+								<div id="slider_pic">
+									
+
+									<ul>
+										<li>
+											<img src="images/liuchengkui.jpg" width="180" height="130" />
+
+										</li>
+										<li>
+											<img src="images/1450323721.jpg" width="180" height="130" />
+
+										</li>
+										<li>
+											<img src="images/android-dev2-24.png" width="200" height="130" />
+
+										</li>
+									</ul>
+
+
+									
+								</div>
+							</div>
+						</div>
+						<div class="leftbottom">
+							<div class="lmenu3  spr n7">
+								关于我们
+								<a href="/about" class="lian4">more&gt;&gt;</a>
+							</div>
+							<div class="one">
+								
+									<div class="xiaobiao">教学成果目录</div>
+								
+								<p>
+									该Android学习网站广受学生好评,许多学生通过该网站学到了自己所需要的知识,加强了自己的能力和对Android进一步的了解和深入,找到自己满意的高薪工作,该网站的用户达到200多万人,获得用户的一直好评.....
+								</p>
+							</div>
+							<div class="two">
+								
+									<div class="xiaobiao">相关教材</div>
+								
+								<p>
+									<img src="images/a2.jpg" width="240" height="160"/>
+								</p>
+							</div>
+							<div class="three">
+								
+									<div class="xiaobiao">教材介绍</div>
+								
+								<p>《高等学校计算机系列规划教材:Android移动编程实用教程》主要内容简介：近年来Android的兴起和对移动手持设备开发领域的冲击，已成热门话题。《高等学校计算机系列规划教材:Android移动编程实用教程》共10章和两个附录，详细叙述了Android移动编程的基本概念......</p>
+							</div>
+
+						</div>
+					</div>
+					<div class="right">
+						<div class="righttop">
+							<div class="lmenu4  spr n8">学习资料</div>
+							<div class="picture">
+								<a href="index_6.html">
+									<img src="images/a4.jpg" width="200px" height="120px"></a>
+							</div>
+						</div>
+						<div class="rightmid">
+							<div class="rightmid-top">
+								<div class="lmenu4 spr n9">
+									教学文件
+									<a href="/files" class="lian5">more&gt;&gt;</a>
+								</div>
+								<p>
+									<div class="xiaobiao">教学设计</div>
+								</p>
+								<p>绪论教学设计</p>
+								<p>1.Android的基本知识教学设计</p>
+								<p>......</p>
+							</div>
+							<div class="rightmid-mid">
+								<p>
+									<div class="xiaobiao">重点难点</div>
+								</p>
+								<p>绪论重点难点</p>
+								<p>1.Android的基本知识重点难点</p>
+								<p>......</p>
+							</div>
+							<div class="rightmid-bottom">
+								<p>
+									<div class="xiaobiao">习题及解答</div>
+								</p>
+								<p>1.Android的基本知识习题与解答</p>
+								<p>2.Android入门编程练习</p>
+								<p>......</p>
+							</div>
+
+						</div>
+						<div class="rightbottom">
+							<div class="lmenu4 spr n10">
+								教学资源
+								<a href="/teaching" class="lian5">more&gt;&gt;</a>
+							</div>
+							<div class="bang4">
+								<div class="bang3">教材推荐</div >
+								<div  class="bang3">视频推荐</div >
+								<div  class="bang3">教师师资</div >
+								<div  class="bang3">聘请名师教学</div >
+							</div>
+							<div class="bang5">
+								<img src="images/a3.jpg" width="80px" height="100px"></div>
+						</div>
+					</div>
+				</div>
+				<div id="footer">
+					<div class="inner">
+						<p>Copyright reserved by 西南石油大学软件工程刘曙辉</p>
+						<p>联系电话：029-85126455 E-mail:liushuhui@swpu.edu.cn</p>
+
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+		
+		
+		
+		
+	<script type="text/javascript">
+		let http = axios.create({
+		  baseURL: '/api',
+		  timeout: 1000
+		});
+		new Vue({
+			el: "#app",
+			data: {
+				user: '',
+				registerModal: false,
+				errorModal: false,
+				loginModal: false,
+				error: '',
+				params: {
+					name: '',
+					email: '',
+					password: ''
+				},
+				loginParams: {
+					email: '',
+					password: ''
+				},
+				password: ''
+			},
+			created() {
+				http.get('/islogin')
+					.then(res => {
+						this.user = res.data
+					})
+			},
+			methods: {
+				register() {
+					this.registerModal = false
+					http.post('/signup', this.params)
+						.then(res => {
+							this.user = res.data
+						})
+						.catch(res => {
+							this.error = res.response.data
+							this.errorModal = true
+						})
+				},
+				login() {
+					this.loginModal = false
+					http.post('/signin', this.loginParams)
+						.then(res => {
+							console.dir(res)
+							this.user = res.data
+						})
+						.catch(res => {
+							this.error = res.response.data
+							this.errorModal = true
+						})
+				},
+				logout() {
+					http.get('/signout')
+						.then(() => {
+							this.user = ''
+						})
+						.catch(res => {
+							this.error = res.response.data
+							this.errorModal = true
+						})
+				}
+			}
+		})
+	</script>
+</body>
+</html>

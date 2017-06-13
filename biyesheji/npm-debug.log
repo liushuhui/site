@@ -1,0 +1,38 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'test' ]
+2 info using npm@4.1.2
+3 info using node@v7.7.3
+4 verbose run-script [ 'pretest', 'test', 'posttest' ]
+5 info lifecycle biyesheji-server@1.0.0~pretest: biyesheji-server@1.0.0
+6 silly lifecycle biyesheji-server@1.0.0~pretest: no script for pretest, continuing
+7 info lifecycle biyesheji-server@1.0.0~test: biyesheji-server@1.0.0
+8 verbose lifecycle biyesheji-server@1.0.0~test: unsafe-perm in lifecycle true
+9 verbose lifecycle biyesheji-server@1.0.0~test: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;D:\nginx-1.13.0\html\biyesheji\biyesheji\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\所有报告\bin;E:\;Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_111\bin;C:\Program Files\Java\jre1.8.0_111\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\3.4\bin;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Users\Administrator\AppData\Roaming\npm;E:\AppServ\Apache2.2\bin;E:\AppServ\php5;E:\AppServ\MySQL\bin
+10 verbose lifecycle biyesheji-server@1.0.0~test: CWD: D:\nginx-1.13.0\html\biyesheji\biyesheji
+11 silly lifecycle biyesheji-server@1.0.0~test: Args: [ '/d /s /c', 'node app' ]
+12 silly lifecycle biyesheji-server@1.0.0~test: Returned: code: 3221225786  signal: null
+13 info lifecycle biyesheji-server@1.0.0~test: Failed to exec test script
+14 error Test failed.  See above for more details.
+15 verbose exit [ 1, true ]
+16 verbose stack Error: kill ENOSYS
+16 verbose stack     at exports._errnoException (util.js:1033:11)
+16 verbose stack     at process.kill (internal/process.js:188:13)
+16 verbose stack     at process.listener (C:\Program Files\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:95:15)
+16 verbose stack     at emitNone (events.js:86:13)
+16 verbose stack     at process.emit (events.js:188:7)
+16 verbose stack     at processEmit (C:\Program Files\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:155:32)
+16 verbose stack     at Signal.wrap.onsignal (internal/process.js:215:44)
+17 verbose cwd D:\nginx-1.13.0\html\biyesheji\biyesheji
+18 error Windows_NT 6.1.7601
+19 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "test"
+20 error node v7.7.3
+21 error npm  v4.1.2
+22 error code ENOSYS
+23 error errno ENOSYS
+24 error syscall kill
+25 error kill ENOSYS
+26 error If you need help, you may report this error at:
+26 error     <https://github.com/npm/npm/issues>
+27 verbose exit [ 1, true ]

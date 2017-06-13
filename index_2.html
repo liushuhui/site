@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+<title>Android学习网站</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_2.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_3.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+
+<style>
+	.teacher-list {
+		max-height: 500px;
+		overflow: auto;
+		border-top: 1px solid #ccc;
+	}
+</style>
+
+<!-- 引入样式 -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css"> -->
+<!-- 引入组件库 -->
+<script src="https://cdn.bootcss.com/vue/2.3.0/vue.min.js"></script>	
+<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+
+
+<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<!--[if IE 6]>
+<style type="text/css" media="screen">
+body{behavior:url(csshover.htc);} 
+.left{height:650px;float:left;top;position:relative;z-index:1;margin-left:22px;z-index:2;width:208px;display:inline;}
+</style>
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div id="wrap">
+    <div class="header">
+			
+		</div>
+    <div class="nav">
+         <div class="inner">
+             <ul class="menu">
+                  <li><a href="/home">首页</a></li>
+                 <li  class="current"><a href="/teachers">教学团队</a></li>
+                 <li><a href="/courses">课程概要</a></li>
+				 <li><a href="/files">教学文件</a></li>
+                 <li><a href="/videos">视频学习</a></li> 
+                 <li><a href="/learning">学习资料</a></li>
+				 <li><a href="/teaching">教学资源</a></li>
+				 
+                 <li><a href="/about">关于我们</a></li>
+             </ul>
+        </div>
+     </div>
+<div class="bg">
+    <div class="main">
+	    <div class="inner">
+		    <div class="left">
+			    <div class="tab">
+				     <ul class="tab_menu">
+				         <li>教学团队</li>
+				     </ul>
+		                     
+				    <div class="tab_box">
+				         <div class="drop_menu">
+								  <div class="cha"> <img src="images/cha_02.jpg">主讲教师<span class="caret"></span></div>
+								<ul class="teacher-list">
+					               <li :class="{first: activeItem._id === item._id}" v-for="item in teachers" @click="changeItem(item)">
+					               	   <a href="#" class="nav_off" :title="item.name">{{item.name}}</a>
+					               </li>
+				                </ul>
+				        </div>  			
+	                </div>
+				</div>
+			</div>
+		    
+		    <div class="right">
+		         <div class="right-menu"></div>
+			     <div class="content">
+				     <div class="content-main">
+				        <div class="tab_con" >
+							<img :src="activeItem.avatar" width="150px"  class="f marg10"/>
+							<h4 class="text-success ">姓名:{{activeItem.name}}</h4>
+							<br />
+							<h4 class="text-info ">教师简介 </h4>
+							<p>{{activeItem.profile}}</p>
+							<br />
+							<template v-for="item in activeItem.project">
+								<h4 class="text-info">项目名称：{{item.name}}</h4>
+								<p>项目介绍：{{item.introduce}}</p>
+								<br />
+							</template>
+							<h4 class="text-info">授课特点</h4>
+							<p>{{activeItem.style}}</p>
+						</div> 
+					   
+			        </div>
+                 </div>
+            </div>
+        </div>	
+     </div>	
+             <div id="footer">
+					<div class="inner">
+						<p>Copyright reserved by 西南石油大学软件工程刘曙辉</p>
+						<p>联系电话：029-85126455 E-mail:liushuhui@swpu.edu.cn</p>
+
+					</div>
+				</div>
+ </div>
+</div>
+
+<script>
+	new Vue({
+		el: "#wrap",
+		data: {
+			teachers: '',
+			activeItem: ''
+		},
+		created() {
+			this.getTeacher().then(arr => this.changeItem(arr[0]))
+		},
+		methods: {
+			getTeacher() {
+				return axios.get('/api/teacher')
+					.then(res => this.teachers = res.data)
+			},
+			changeItem(item) {
+				this.activeItem = item	
+			}
+		}
+	})
+</script>
+
+</body>
+<!-- <script type="text/javascript" src="js/note.js"></script> -->
+</html>
+		 

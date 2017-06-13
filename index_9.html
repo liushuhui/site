@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+<title>Android学习网站</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_2.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/index_4.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+
+<!-- 引入组件库 -->
+<script src="https://cdn.bootcss.com/vue/2.3.0/vue.min.js"></script>	
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+<!--[if IE 6]>
+<style type="text/css" media="screen">
+body{behavior:url(csshover.htc);} 
+.left{height:650px;float:left;top;position:relative;z-index:1;margin-left:22px;z-index:2;width:208px;_display:inline;}
+</style>
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script> 
+<script  type="text/javascript" src="js/bootstrap.min.js"></script>
+<style>
+	.box-card {
+		margin-bottom: 15px;
+	}
+</style>
+</head>
+<body>
+<div id="wrap">
+    <div class="header">
+    	
+    </div>
+    <div class="nav">
+         <div class="inner">
+             <ul class="menu">
+                 <li><a href="/home">首页</a></li>
+                 <li><a href="/teachers">教学团队</a></li>
+                 <li><a href="/courses">课程概要</a></li>
+				 <li><a href="/files">教学文件</a></li>
+                 <li><a href="/videos">视频学习</a></li> 
+                 <li><a href="/learning">学习资料</a></li>
+				 
+                 <li><a href="/teaching">教学资源</a></li>
+                 
+                 <li  class="current"><a href="/about">关于我们</a></li>
+             </ul>
+        </div>
+     </div>
+
+   <div class="bg">
+    <div class="main">
+	    <div class="inner">
+		    <div class="left">
+			    <div class="tab">
+				     <ul class="tab_menu">
+				         <li>教学成果</li>
+				     </ul>
+		                     
+				    <div class="tab_box">
+				         <div class="drop_menu">	
+				             <ul id="nav">
+								<li :class="{first: panel=='mynav0'}" @click="panel='mynav0'"><a href="#" class="nav_on" title="出版教材">出版教材</a></li>
+								<li :class="{first: panel=='mynav1'}" @click="panel='mynav1'"><a href="#" class="nav_off" title="学习论坛">学习论坛</a>
+								 <li :class="{first: panel=='mynav2'}" @click="panel='mynav2'"><a href="#" class="nav_off" title="教学评价">教学评价</a>
+									<ul class="child">
+										<li @click="(panel='mynav2') && (child_panel='ymnav0')"><a href="#" id="ymnav0" class="nav_on" title="自我评价">自我评价</a></li>
+										<li @click="(panel='mynav2') && (child_panel='ymnav1')"><a href="#" id="ymnav1" class="nav_off" title="专家评价">专家评价</a></li>
+										<li @click="(panel='mynav2') && (child_panel='ymnav2')"><a href="#" id="ymnav2" class="nav_off" title="督导评价">同行评价</a></li>
+										<li @click="(panel='mynav2') && (child_panel='ymnav3')"><a href="#" id="ymnav3" class="nav_off" title="学生评价">学生评价</a></li>
+										<li @click="(panel='mynav2') && (child_panel='ymnav4')"><a href="#" id="ymnav4" class="nav_off" title="社会评价">社会评价</a></li>
+									</ul>
+								</li>
+				            </ul>
+				        </div>  			
+	                </div>
+				</div>
+			</div>
+			
+		     <div class="right">
+		         <div class="right-menu">
+		         	<button @click="openDialog()" class="btn btn-primary" v-if="panel==='mynav1'">发表留言</button>
+			     </div>
+			     <div class="content">
+				    <div class="content-main of">
+						
+				        <div id="qh_con0" :class="{hid: panel !== 'mynav0'}" class=" tab_con" >
+							<a href="images/Android3.jpg" title="Android" class="books">
+								<img src="images/Android3.jpg" height="200px">
+							</a>
+							<a href="images/Android3.jpg" title="Android" class="books">
+								<img src="images/Android3.jpg" height="150px">
+							</a>
+							<a href="images/Android3.jpg" title="Android" class="books">
+								<img src="images/Android3.jpg" height="200px">
+							</a>
+							<a href="images/Android3.jpg" title="Android" class="books">
+								<img src="images/Android3.jpg"  height="200px">
+							</a>
+							
+							<a href="images/Android3.jpg" title="Android" class="books">
+								<img src="images/Android3.jpg" height="200px">
+							</a>
+							<a href="images/Android3.jpg"  title="Android" class="books">
+							<img src="images/Android3.jpg" height="150px">
+							</a>
+						</div> 
+					    
+						<div :class="{hid: panel !== 'mynav2'}" class="tab_con">
+							<div :class="{hid: child_panel !== 'ymnav0'}">
+								<h2>自我评价：</h2>
+								<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse0">
+								培养目标明确
+								</a>
+									</h1>
+									</div>
+									<div id="collapse0" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>以培养学生的工程素质和综合素质为定位教学目标，更新教学观念，改革教学手段，用学科最新发展的知识和技术整合教学内容和改进教学方法。</p> 
+								</div>
+									</div>
+									</div>
+									</div>
+								<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse1">	
+								教学模式创新
+								</a>
+									</h1>
+									</div>
+									<div id="collapse1" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>采用理论与实践相结合的教学，理论联系实际，个人与分组学习相结合，课堂讲授与实践、讨论、报告相结合，使学生从被动学习变为主动学习；吸引学生参加教改活动、教学软件和网站的建设，紧密结合工程实践，实现以学生为主体的教学模式。</p>
+								</div>
+									</div>
+									</div>
+									
+									<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse2">	
+								教学资源丰富
+								</a>
+									</h1>
+									</div>
+									<div id="collapse2" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>构建了网络化、数字化、系列化的成套教学资源系统，有较丰富的拓展资源，在教与学的实践中全方位推行计算机辅助教学，形成了一种成熟的模式。</p>
+								</div>
+									</div>
+									</div>
+									<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse3">	
+								教师团队优秀
+								</a>
+									</h1>
+									</div>
+									<div id="collapse3" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>该教师团队都具有丰富的教学经验和知识,能够针对不同的学生采取不同的教学方案,以培养学生的工程素质和综合素质为定位教学目标,用学科最新发展的知识和技术整合教学内容和改进教学方法。</p>
+								</div>
+									</div>
+									</div>
+									<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse4">	
+								创新活动活跃
+								</a>
+									</h1>
+									</div>
+									<div id="collapse4" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>通过开展各类创新活动，提升学生创造能力，使学生能够通过自己的能力来完成相关的项目,还会举行多元化比赛,进一步加强学生的能力,从而使学生获得真正的知识。</p>
+									</div>
+									</div>
+									</div>
+									
+							<div :class="{hid: child_panel !== 'ymnav1'}">
+								
+								<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse5">	
+								培养目标明确
+								</a>
+									</h1>
+									</div>
+									<div id="collapse5" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>以培养学生的工程素质和综合素质为定位教学目标，更新教学观念，改革教学手段，用学科最新发展的知识和技术整合教学内容和改进教学方法。</p> 
+								</div>
+									</div>
+									</div>
+								<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse6">		
+								教学模式创新
+								</a>
+									</h1>
+									</div>
+									</div>
+									<div id="collapse6" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>采用理论与实践相结合的教学，理论联系实际，个人与分组学习相结合，课堂讲授与实践、讨论、报告相结合，使学生从被动学习变为主动学习；吸引学生参加教改活动、教学软件和网站的建设，紧密结合工程实践，实现以学生为主体的教学模式。</p>
+								</div>
+									</div>
+									</div>
+								
+								</div> 
+							<div :class="{hid: panel !== 'ymnav2'}">
+								<div class="panel panel-danger">
+							<div class="panel-heading">
+							<h1 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" 
+								   href="#collapse7">	
+								培养目标明确
+								</a>
+									</h1>
+									</div>
+									<div id="collapse7" class="panel-collapse collapse">
+									<div class="panel-body">
+								<p>以培养学生的工程素质和综合素质为定位教学目标，更新教学观念，改革教学手段，用学科最新发展的知识和技术整合教学内容和改进教学方法。</p> 
+								</div>
+									</div>
+									</div>
+								
+							</div> 
+							<div :class="{hid: child_panel !== 'ymnav3'}">
+								<h1>学生评价：</h1>
+								
+								<p><span>下表为用户对老师的评价:</span></p>
+								<div class="table">
+									<table border="1" cellspacing="0" cellpadding="0" width="517" class=" table table-bordered table-hover ">
+										<tr class="tableh">
+											<td width="195" nowrap="nowrap"><p align="left"><strong>课程名称</strong><strong> </strong></p></td>
+											<td width="84" nowrap="nowrap"><p align="left"><strong>教师姓名</strong><strong> </strong></p></td>
+											<td width="98" nowrap="nowrap"><p align="center"><strong>教师评分</strong><strong> </strong></p></td>
+											<td width="70" nowrap="nowrap"><p align="center"><strong>学习</strong><strong> </strong><br />
+											<strong>人数</strong><strong> </strong></p></td>
+											<td width="70" nowrap="nowrap"><p align="center"><strong>参加</strong><strong> </strong><br />
+											<strong>人数</strong><strong> </strong></p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>文超 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">92.839</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">43</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">43</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>陈超 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.787</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>黄飞 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.825</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>王穗 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">92.715</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">87</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>董宪明 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.945</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">61</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">61</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android（1） </p></td>
+											<td width="84" nowrap="nowrap"><p>王穗 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">92.769</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">100</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">100</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android（1） </p></td>
+											<td width="84" nowrap="nowrap"><p>李冰 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">97.107</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">47</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">47</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android（1） </p></td>
+											<td width="84" nowrap="nowrap"><p>赵达康 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.746</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">98</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">98</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android（1） </p></td>
+											<td width="84" nowrap="nowrap"><p>高玉亮 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">95.18</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">98</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">98</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android（1） </p></td>
+											<td width="84" nowrap="nowrap"><p>赵同伟 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">93.417</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">90</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">90</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>李冰 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.196</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">103</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">103</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>赵同伟 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">90.15</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">99</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">99</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>赵同伟 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">95.586</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">32</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">32</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>王穗 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">92.409</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">99</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">99</p></td>
+										</tr>
+										<tr>
+											<td width="195" nowrap="nowrap"><p align="left">Android </p></td>
+											<td width="84" nowrap="nowrap"><p>赵同伟 </p></td>
+											<td width="98" nowrap="nowrap"><p align="right">94.91</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">101</p></td>
+											<td width="70" nowrap="nowrap"><p align="right">101</p></td>
+										</tr>
+									</table>
+								</div>
+								<p>从以上统计结果看，团队教师的教学工作得到学生的普遍认可。</p>			
+							</div> 
+							<div id="ym_con4" :class="{hid: child_panel !== 'ymnav4'}">
+									
+							</div> 
+
+
+
+							<!-- 评价回复 -->
+							<div class="tab_con" :class="{hid: panel !== 'mynav1'}">
+								<el-card :body-style="{padding: '12px'}" class="box-card" v-for="item in messages.data">
+									<div class="message-header clearfix">
+										<span class="text-info">{{item.fromUser.name}}</span>
+										<i class="glyphicon glyphicon-bullhorn"></i>
+										<span class="text-success" v-if="item.toUser">{{item.toUser.name}}</span>
+										<button @click="openDialog(item.fromUser)" class="btn btn-info pull-right">回复</button>
+									</div>
+									<p style="text-indent: 0">{{item.content}}</p>
+								    
+								</el-card> 
+								<el-pagination
+							      @current-change="getMsg"
+							      :current-page="params.page"
+							      :page-size="params.limit"
+							      layout="total, prev, pager, next"
+							      :total="messages.total">
+							    </el-pagination>
+							</div>
+
+							<el-dialog :title="title" v-model="replyDialog">
+							  <el-form :model="message">
+							    <el-form-item v-if="replyTarget" label="回复给:" label-width="80px">
+							      <el-input v-model="replyTarget.name" :disabled="true"></el-input>
+							    </el-form-item>
+							    <el-form-item label="发表内容:" label-width="80px">
+							      <el-input type="textarea" v-model="message.content"></el-input>
+							    </el-form-item>
+							  </el-form>
+							  <div slot="footer" class="dialog-footer">
+							    <el-button @click="replyDialog = false">取 消</el-button>
+							    <el-button type="primary" :disabled="!message.content" @click="postMsg()">发 送</el-button>
+							  </div>
+							</el-dialog>
+
+							<!--错误消息-->
+							<el-dialog title="错误提示" size="tiny" v-model="errorModal">
+								<p>{{error.msg || '网络错误,刷新重试'}}</p>
+							</el-dialog>
+
+						</div>					
+					     
+			        </div>	     
+                 </div>
+            </div>
+        </div>	
+     </div>	
+             <div id="footer">
+					<div class="inner">
+						<p>Copyright reserved by 西南石油大学软件工程刘曙辉</p>
+						<p>联系电话：029-85126455 E-mail:liushuhui@swpu.edu.cn</p>
+
+					</div>
+				</div>
+</div>
+</body>
+
+
+
+
+<script>
+	new Vue({
+		el: "#wrap",
+		created() {
+			this.getMsg()
+		},
+		data: {
+			panel: "mynav0",
+			child_panel: "ymnav0",
+			message: {
+				content: ''
+			},
+			messages: '',
+			replyTarget: '',
+			params: {
+				page: 1,
+				limit: 10
+			},
+			replyDialog: false,
+			errorModal: false,
+			error: '',
+		},
+		computed: {
+			title() {
+				let name = this.replyTarget.name
+				return name ? `回复 ${name}` : '发表留言'
+			}
+		},
+		methods: {
+			getMsg(page) {
+				if (page) this.params.page = page
+				axios.get('/api/message', {
+					params: this.params
+				}).then(res => {
+					this.messages = res.data
+				})
+			},
+			postMsg() {
+				this.replyDialog = false
+				if (this.replyTarget) {
+					this.message.toUser = this.	._id
+				}
+				axios
+					.post('/api/message', this.message)
+					.then(res => {
+						this.getMsg()
+						this.message = {
+							content: ''
+						}
+					})
+					.catch(res => {
+						this.errorModal = true
+						this.error = res.response.data
+					})
+			},
+			openDialog(item) {
+				this.replyTarget = item || ''
+				this.replyDialog = true
+			}
+		}
+	})
+</script>
+</html>
+		 

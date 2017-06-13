@@ -1,0 +1,32 @@
+.cha {
+	height: 38px;
+	padding-left: 10px;
+	color: #005ab6;
+	font-weight: bold;
+	font-size: 15px;
+	font-family: "微软雅黑";
+	cursor: pointer;
+}
+
+.picture {
+	border: 1px solid #c8c8c8;
+	width: 150px;
+	float: left;
+}
+
+#qh_con0 h1 {
+	text-indent: 25px;
+}
+
+#qh_con0 p {
+	text-indent: 20px;
+	letter-spacing: 2px;
+}
+
+.table {
+	height: 800px;
+}
+
+.table p {
+	text-indent: 0px;
+}
